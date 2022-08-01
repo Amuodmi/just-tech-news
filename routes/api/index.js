@@ -2,7 +2,7 @@
 
 const router = require('express').Router();
 
-const userRoutes = require('./just-tech-news/router/user-routes.js');
+const userRoutes = require('./routes/user-routes')
 
 router.use('/users', userRoutes);
 
