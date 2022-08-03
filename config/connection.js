@@ -1,18 +1,22 @@
-//import the Sequelize constructor from the library 
-
 const Sequelize = require('sequelize');
+const exphbs = require('express-handlebars');
+const hbs = exphbs.create({});
+
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
 
 require('dotenv').config();
 
+let sequelize;
 
-//create connection to our database, pass in your mySQL information for username and password
-//the new Sequelize function accepts the database name, mySQL username, and password, and passes configuration settings. 
+if (process.env.JAWSDB_URL) {
+  sequelize = new Sequelize(process.env.JAWSDB_URL);
+} else {
+  sequelize = new Sequelize('just_tech_news_db', 'root', 'Supergeil!016', {
+    host: 'localhost',
+    dialect: 'mysql',
+    port: 3306
+  });
+}
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
-  host: '127.0.0.1',
-  dialect: 'mysql',
-  port: 3306
-});
-
-//exporting the above connection 
-module.exports = sequelize; 
+module.exports = sequelize;
